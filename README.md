@@ -72,7 +72,7 @@ Spellcheck for `.md` files can be manually run via `npm run spellcheck`. \*If co
 
 ## Testing
 
-This project uses [Jest](https://jestjs.io/) for testing. Tests are lightweight but important to prevent regressions and new bugs. Tests will be run as part of a pre-commit hook, but they can also be run at will via `npm run test`.
+This project uses [Jest](https://jestjs.io/) for testing. Tests are lightweight but important to prevent regressions and new bugs. Tests will be run as part of a pre-commit hook and Pull Request action, but they can also be run at will via `npm run test`.
 
 ## Contributing
 
