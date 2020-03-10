@@ -2,8 +2,9 @@
   "name": "optimizely-segment-custom-destination-function",
   "version": "0.0.1",
   "description": "Use this Custom Destinations Function to transform and send Segments events to Optimizely.",
-  "main": "index.js",
+  "private": true,
   "scripts": {
+    "build": "gulp build fetch",
     "lint": "eslint '**/*.js' --fix",
     "pretty": "prettier --write '**/*.js'",
     "spellcheck": "mdspell '**/*.md' '!**/node_modules/**/*.md'",
@@ -23,22 +24,24 @@
       "npm run spellcheck"
     ]
   },
-  "keywords": [
-    "segment",
-    "optimizely",
-    "full-stack",
-    "rollouts"
-  ],
   "author": "Derek Hammond",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "gulp": "^4.0.2",
+    "gulp-append-prepend": "^1.0.8",
+    "gulp-inject-version": "^1.0.1",
+    "gulp-prompt": "^1.2.0",
+    "gulp-remove-code": "^3.0.4",
     "husky": "^4.2.3",
     "jest": "^25.1.0",
     "lint-staged": "^10.0.8",
     "markdown-spellcheck": "^1.3.1",
-    "prettier": "1.19.1"
-  }
+    "node-fetch": "^2.6.0",
+    "prettier": "1.19.1",
+    "yargs": "^15.3.0"
+  },
+  "dependencies": {}
 }
