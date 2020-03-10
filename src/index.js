@@ -32,17 +32,33 @@ const OPTIMIZELY_CRIER_SEMANTIC_VERSION = '%%PACKAGE_VERSION%%';
  * }
  * @param {FunctionSettings} settings
  */
-async function onTrack({ event, integrations, timestamp }, { apiKey }) {
-  const { attributes, userId } =
-    (integrations ? integrations : {}).Optimizely || {};
+async function onTrack(
+  { context, event, integrations, timestamp },
+  { apiKey }
+) {
+  let attributes = {};
+  let userId = null;
+
+  if (integrations && integrations.Optimizely) {
+    ({ attributes, userId } = integrations.Optimizely);
+    // eslint-disable-next-line no-console
+    console.log(
+      `[OPTIMIZELY] event.integrations.Optimizely available. User: "${userId}"`
+    );
+  }
+  if (!userId && context && context.Optimizely) {
+    ({ attributes, userId } = context.Optimizely);
+    // eslint-disable-next-line no-console
+    console.log(
+      `[OPTIMIZELY] event.context.Optimizely available. User: "${userId}"`
+    );
+  }
 
   if (!userId) {
     throw new InvalidEventPayload(
       '[OPTIMIZELY] Optimizely.integrations.userId not present'
     );
   }
-
-  console.log(`[OPTIMIZELY] Optimizely.integrations.userId "${userId}"`); // eslint-disable-line no-console
 
   let { accountId, attributeKeyToIdMap, eventKeyToIdMap } =
     typeof OPTIMIZELY_DATA !== 'undefined' ? OPTIMIZELY_DATA : {};
@@ -72,16 +88,7 @@ async function onTrack({ event, integrations, timestamp }, { apiKey }) {
         account_id: accountId,
         anonymize_ip: true,
         attributes: Object.entries(attributes)
-          .filter(([key]) => {
-            const isKnownEvent = !!attributeKeyToIdMap[key];
-            // eslint-disable-next-line no-console
-            console.log(
-              `[OPTIMIZELY] ${
-                isKnownEvent ? 'Recognized' : 'Unrecognized'
-              } attribute "${key}"`
-            );
-            return isKnownEvent;
-          })
+          .filter(([key]) => !!attributeKeyToIdMap[key])
           .map(([key, value]) => ({
             key,
             value,
@@ -115,7 +122,7 @@ async function onTrack({ event, integrations, timestamp }, { apiKey }) {
 
   // eslint-disable-next-line no-console
   console.log(
-    `[OPTIMIZELY] ${optimizelyTrackEventResponse.status} status for event "${event}" (${eventUuid})`
+    `[OPTIMIZELY] ${optimizelyTrackEventResponse.status} status for user "${userId}" and event "${event}" (${eventUuid})`
   );
 
   return optimizelyTrackEventResponse.text().then(responseText => {
