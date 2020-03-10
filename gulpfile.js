@@ -27,6 +27,7 @@ gulp.task('build', function build() {
 gulp.task('fetch', async () => {
   const { sdkKey } = argv;
   if (!sdkKey) {
+    // eslint-disable-next-line no-console
     console.log(
       '[WARNING] No SDK Key was provided. Specify one via "npm run build --sdkKey=a1b2c3d4e5f6"'
     );
@@ -37,9 +38,9 @@ gulp.task('fetch', async () => {
   });
   let fileContents = `// Last snapshot: ${new Date()}\n`;
   fileContents += `const OPTIMIZELY_DATA = ${JSON.stringify(response)};`;
-  console.log('[SUCCESS] Datafile fetched');
+  console.log('[SUCCESS] Datafile fetched'); // eslint-disable-line no-console
   fs.writeFile('./dist/data.js', fileContents, function(err) {
-    if (err) return console.error('[OPTIMIZELY] Write failure', err);
+    if (err) return console.log('[OPTIMIZELY] Write failure', err); // eslint-disable-line no-console
     gulp
       .src('./dist/index.js')
       .pipe(gulpAppendPrepend.prependFile('./dist/data.js'))
