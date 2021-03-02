@@ -1,0 +1,52 @@
+{
+  "ExpectedOptimizelyPayload": {
+    "account_id": "5935064",
+    "anonymize_ip": true,
+    "attributes": [
+      {
+        "key": "account_id",
+        "value": "5935064",
+        "type": "custom",
+        "entity_id": "8518430088"
+      }
+    ],
+    "client_name": "Optimizely/segment-custom-destination-function",
+    "client_version": "0.0.1",
+    "enrich_decisions": true,
+    "visitors": {
+      "snapshots": [
+        {
+          "decisions": [],
+          "events": [
+            {
+              "entity_id": "17605600141",
+              "key": "Change History Page View",
+              "timestamp": 1583789591594,
+              "uuid": "f5937baa-12d0-455a-91db-654125db4108"
+            }
+          ]
+        }
+      ],
+      "visitor_id": "5935064"
+    }
+  },
+  "SegmentEvent": {
+    "anonymousId": "61db7c12-c437-4efe-9123-f3e2031903b5",
+    "event": "Change History Page View",
+    "integrations": {
+      "Optimizely": {
+        "attributes": {
+          "account_id": "5935064",
+          "created_epoch_date": 1301345505680,
+          "total_revenue_three_months": 0,
+          "is_internal_user": true
+        },
+        "userId": "5935064"
+      }
+    },
+    "messageId": "ajs-0c224f035fce1c9adc62d6c06035439e",
+    "timestamp": "2020-03-09T21:33:11.594Z",
+    "type": "track",
+    "userId": "5935064_4df8049ed4b011e3aa46635c25628756"
+  }
+}
